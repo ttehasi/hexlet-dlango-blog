@@ -1,6 +1,21 @@
 {% extends "layout.html" %}
 
+{% block sidebar %}
+    <ul>
+        <li><a href="/">Главная</a></li>
+        <li><a href="/articles/">Статьи</a></li>
+    </ul>
+    <a href="{% url 'article_create' %}">Создать статью</a>
+{% endblock %}
+
 {% block content %}
+{% if messages %}
+<ul>
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
     <h1>Список статей</h1>
     {% for article in articles %}
         <h2><a href="{% url 'article_id' id=article.id %}">{{ article.name }}</a></h2>
